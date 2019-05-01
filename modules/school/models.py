@@ -1,6 +1,7 @@
 from django.db import models
 import uuid
 from django.utils.translation import ugettext_lazy as _
+from modules.expense.models import Expense
 
 # Create your models here.
 class School(models.Model):
@@ -19,5 +20,3 @@ class School(models.Model):
 
     def __str__(self):
         return self.name
-
-

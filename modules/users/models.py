@@ -39,6 +39,21 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser, PermissionsMixin):
+    def setup_guardian(user):
+        Guardian.objects.create(
+            user=user,
+        )
+
+    def setup_student(user):
+        Student.objects.create(
+            user=user
+        )
+
+    ROLES = {
+        0: setup_guardian,
+        1: setup_student
+    }
+
     id = models.CharField(primary_key=True, max_length=255, default=uuid.uuid4, unique=True, editable=False )
     username = models.CharField(null=True, blank=True, max_length=255, unique=True)
     email = models.EmailField(_('email address'), unique=True)
@@ -46,6 +61,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     last_name = models.CharField(_('last name'), max_length=30, blank=True)
     date_joined = models.DateTimeField(_('date joined'), auto_now_add=True)
     is_active = models.BooleanField(_('active'), default=True)
+    role = models.PositiveIntegerField(null=True, blank=True)
     image = models.ImageField(upload_to='images/', null=True, blank=True)
 
     is_staff = models.BooleanField(
@@ -71,7 +87,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.email
-    
+
     def clean(self):
         self.username = self.username.lower()
 
@@ -103,7 +119,7 @@ class Admin(models.Model):
     date_modified = models.DateTimeField(blank=True, null=True, editable=False,
                                         auto_now=True,
                                         verbose_name=_('date modified'))
-    
+
     def __str__(self):
         return self.user.username
 
@@ -120,7 +136,7 @@ class Guardian(models.Model):
     date_modified = models.DateTimeField(blank=True, null=True, editable=False,
                                         auto_now=True,
                                         verbose_name=_('date modified'))
-    
+
     def __str__(self):
         return self.user.username
 
@@ -160,6 +176,6 @@ class Relation(models.Model):
     date_modified = models.DateTimeField(blank=True, null=True, editable=False,
                                         auto_now=True,
                                         verbose_name=_('date modified'))
-    
+
     def __str__(self):
         return self.guardian.user.username + ' ' + self.student.user.username

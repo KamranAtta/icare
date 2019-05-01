@@ -9,7 +9,7 @@ from django import forms
 class Sponsorship(models.Model):
     id = models.CharField(primary_key=True, default=uuid.uuid4, editable=False, unique = True, max_length=255)
     relation = models.ForeignKey('users.Relation',on_delete=models.CASCADE, null=True)
-    expense = models.OneToOneField('expense.Expense',on_delete=models.CASCADE, null=True)
+    expense = models.ForeignKey('expense.Expense',on_delete=models.CASCADE, null=True)
     donation = models.DecimalField(default=0, max_digits=10, decimal_places=2)
     duration = models.PositiveIntegerField(default=0)
     is_active = models.BooleanField(default=False, verbose_name=_('active'))
@@ -23,4 +23,3 @@ class Sponsorship(models.Model):
 
     def __str__(self):
         return str(self.relation)
-        
