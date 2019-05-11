@@ -42,8 +42,11 @@ from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/sponsorships/', include('modules.sponsorship.api.urls')),
     path('api/users/', include('modules.users.api.user.urls')),
+    path('api/expenses/', include('modules.expense.api.urls')),
     path('api/schools/', include('modules.school.api.urls')),
+    path('api/residences/', include('modules.residence.api.urls')),
     path('jwt-token-auth/', obtain_jwt_token),
     path('refresh-jwt-token/', obtain_jwt_token),
 ]

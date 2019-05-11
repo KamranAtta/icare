@@ -5,7 +5,7 @@ from django.utils.translation import ugettext_lazy as _
 # Create your models here.
 class Expense(models.Model):
     id = models.CharField(primary_key=True, default=uuid.uuid4, editable=False, unique = True, max_length=255)
-    school = models.OneToOneField('school.School', on_delete=models.CASCADE, null=True)
+    school = models.ForeignKey('school.School', on_delete=models.CASCADE, null=True)
     fee = models.DecimalField(default=0, decimal_places=2, max_digits=10)
     books = models.DecimalField(default=0, decimal_places=2, max_digits=10)
     uniform = models.DecimalField(default=0, decimal_places=2, max_digits=10)
@@ -20,10 +20,12 @@ class Expense(models.Model):
                                          verbose_name=_('date modified'))
 
     def __str__(self):
-        return self.school.name
+        return str(self.school)
 
-    def school_name(self):
-        return self.school.name
+    # def school_name(self,instance):
+    #     return instance.school.name
 
     def total_amount(self):
-        return self.fee + self.books + self.uniform + self.shoes + self.transport + self.lunch
+        total_amount=0
+        total_amount += self.fee + self.books + self.uniform + self.shoes + self.transport + self.lunch
+        return total_amount

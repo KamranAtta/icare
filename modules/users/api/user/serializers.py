@@ -10,6 +10,7 @@ class NewUserSerializer(serializers.Serializer):
     first_name = serializers.CharField(required=False, max_length=30, default='')
     last_name = serializers.CharField(required=False, max_length=30, default='')
     email = serializers.EmailField(required=True)
+    role = serializers.IntegerField(required=True, max_value=1)
 
     def validate_username(self, value):
        user_obj = user_helpers.user_get_by_name(value)
@@ -30,6 +31,7 @@ class NewUserSerializer(serializers.Serializer):
            first_name=self.validated_data.get('first_name'),
            last_name=self.validated_data.get('last_name'),
            email=self.validated_data['email'],
+           role = self.validated_data['role'],
        )
        return user
 
@@ -44,6 +46,7 @@ class NewUserSerializer(serializers.Serializer):
 class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
+        user_id = serializers.SerializerMethodField('get_alternate_name')
         model = User
-        fields = ('id', 'username', 'email', 'first_name', 'last_name')
+        fields = ('id', 'username', 'email', 'first_name', 'last_name', 'date_created', 'date_modified')
         read_only_fields = ['id']

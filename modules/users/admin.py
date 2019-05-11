@@ -7,7 +7,7 @@ class UserAdmin(user_admin):
     pass
 
 class StudentAdmin(admin.ModelAdmin):
-    list_display = ('user','age','gender','detail','education','blood_group','hobbies')
+    list_display = ('user','residence','age','gender','detail','education','blood_group','hobbies')
 
 class GuadianAdmin(admin.ModelAdmin):
     list_display = ('user','address','occupation','cnic','date_created')
@@ -20,4 +20,3 @@ admin.site.register(Guardian, GuadianAdmin)
 admin.site.register(Admin)
 admin.site.register(Student, StudentAdmin)
 admin.site.register(Relation, RelationAdmin)
-

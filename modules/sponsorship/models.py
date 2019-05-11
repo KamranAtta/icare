@@ -8,7 +8,7 @@ from django import forms
 # Create your models here.
 class Sponsorship(models.Model):
     id = models.CharField(primary_key=True, default=uuid.uuid4, editable=False, unique = True, max_length=255)
-    relation = models.ForeignKey('users.Relation',on_delete=models.CASCADE, null=True)
+    relation = models.OneToOneField('users.Relation',on_delete=models.CASCADE, null=True)
     expense = models.ForeignKey('expense.Expense',on_delete=models.CASCADE, null=True)
     donation = models.DecimalField(default=0, max_digits=10, decimal_places=2)
     duration = models.PositiveIntegerField(default=0)
@@ -23,3 +23,15 @@ class Sponsorship(models.Model):
 
     def __str__(self):
         return str(self.relation)
+
+    @property
+    def gardian(self):
+        return self.relation.guardian.name
+
+    @property
+    def student(self):
+        return self.relation.student.name
+
+    @property
+    def school(self):
+        return self.expense.school.name

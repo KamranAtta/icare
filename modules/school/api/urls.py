@@ -10,7 +10,7 @@ router = routers.SimpleRouter()
 
 urlpatterns = tuple(router.urls)
 urlpatterns+=(
-    path('', SchoolListView.as_view, name='school-list'),
-    path('create', SchoolAPIView.as_view, name='school-created'),
-    path('<uuid:pk>', SchoolRUDView.as_view, name= 'school-rud')
+    path('', SchoolListView.as_view(), name='school-list'),
+    path('create', SchoolAPIView.as_view(), name='school-create'),
+    path('<uuid:pk>', SchoolRUDView.as_view(), name= 'school-rud'),
 )
