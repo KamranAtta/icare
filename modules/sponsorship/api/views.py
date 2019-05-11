@@ -14,7 +14,7 @@ from modules.users.api.user import helpers as user_helpers
 
 class SponsorshipAPIView(mixins.CreateModelMixin, generics.ListAPIView):
     lookup_field = 'pk'
-    serializer_class = NewSponsorshipSerializers
+    serializer_class = SponsorshipSerializers
 
     def get_queryset(self):
         qs = Sponsorship.objects.all()
@@ -24,22 +24,6 @@ class SponsorshipAPIView(mixins.CreateModelMixin, generics.ListAPIView):
         return qs
 
     def post(self, request, *args, **kwargs):
-        # serializer = NewSponsorshipSerializers(data=request.data)
-        # if not serializer.is_valid():
-        #     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        #
-        # student = (student_helpers.get_student_by_user_id(request.data['user_id']))
-        # if not student:
-        #     return Response({'error': 'Student doesnot exist'}, status=status.HTTP_400_BAD_REQUEST)
-        #
-        # guardian = guardian_helpers.get_guardian_by_user_id(self.request.user.id)
-        # if not guardian:
-        #     return Response({'error': 'Guardian doesnot exist'}, status=status.HTTP_400_BAD_REQUEST)
-        #
-        # relation = user_helpers.create_relation(guardian, student)
-        # if not relation:
-        #     return Response({'error': 'Can not process request'}, status=status.HTTP_400_BAD_REQUEST)
-
         return self.create(request, *args, **kwargs)
 
 
