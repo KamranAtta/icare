@@ -80,23 +80,23 @@ WSGI_APPLICATION = 'icare.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
-
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'icare',
-#         'USER': 'meherbaan',
-#         'PASSWORD': '123456__',
-#         'HOST': 'localhost',
-#         'PORT': '3306'
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
 #     }
 # }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'icare',
+        'USER': 'root',
+        'PASSWORD': 'kamran12',
+        'HOST': 'localhost',
+        'PORT': '3306'
+    }
+}
 
 
 # Password validation
